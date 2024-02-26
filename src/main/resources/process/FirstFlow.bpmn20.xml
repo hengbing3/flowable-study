@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef" exporter="Flowable Open Source Modeler" exporterVersion="6.8.1">
+  <process id="FirstFlow" name="FirstFlow" isExecutable="true">
+    <documentation>First Flow</documentation>
+    <startEvent id="startEvent1" name="流程发起" flowable:formFieldValidation="true"></startEvent>
+    <userTask id="sid-D24668A5-668E-492A-9F0D-06F511206007" name="人事审批" flowable:assignee="zhangsan" flowable:formFieldValidation="true">
+      <extensionElements>
+        <modeler:activiti-idm-assignee xmlns:modeler="http://flowable.org/modeler"><![CDATA[true]]></modeler:activiti-idm-assignee>
+        <modeler:assignee-info-email xmlns:modeler="http://flowable.org/modeler"><![CDATA[zhangsan@qq.com]]></modeler:assignee-info-email>
+        <modeler:assignee-info-firstname xmlns:modeler="http://flowable.org/modeler"><![CDATA[三]]></modeler:assignee-info-firstname>
+        <modeler:assignee-info-lastname xmlns:modeler="http://flowable.org/modeler"><![CDATA[张]]></modeler:assignee-info-lastname>
+        <modeler:initiator-can-complete xmlns:modeler="http://flowable.org/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-5635D058-5457-4E02-A7DF-BFDFF01275CA" sourceRef="startEvent1" targetRef="sid-D24668A5-668E-492A-9F0D-06F511206007"></sequenceFlow>
+    <userTask id="sid-A8FEE132-6693-4A75-A8AA-00590BE6E5ED" name="经理审批" flowable:assignee="lisi" flowable:formFieldValidation="true">
+      <extensionElements>
+        <modeler:activiti-idm-assignee xmlns:modeler="http://flowable.org/modeler"><![CDATA[true]]></modeler:activiti-idm-assignee>
+        <modeler:assignee-info-email xmlns:modeler="http://flowable.org/modeler"><![CDATA[lisi@qq.com]]></modeler:assignee-info-email>
+        <modeler:assignee-info-firstname xmlns:modeler="http://flowable.org/modeler"><![CDATA[四]]></modeler:assignee-info-firstname>
+        <modeler:assignee-info-lastname xmlns:modeler="http://flowable.org/modeler"><![CDATA[李]]></modeler:assignee-info-lastname>
+        <modeler:initiator-can-complete xmlns:modeler="http://flowable.org/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-24914675-3F47-4F3E-97E1-744A48E8EF85" sourceRef="sid-D24668A5-668E-492A-9F0D-06F511206007" targetRef="sid-A8FEE132-6693-4A75-A8AA-00590BE6E5ED"></sequenceFlow>
+    <endEvent id="sid-2D5E9BA1-E211-41D3-A9D8-5614C4FBB89A" name="流程结束"></endEvent>
+    <sequenceFlow id="sid-A702F143-EBDB-420F-8E5C-7BD67C7E9D27" sourceRef="sid-A8FEE132-6693-4A75-A8AA-00590BE6E5ED" targetRef="sid-2D5E9BA1-E211-41D3-A9D8-5614C4FBB89A"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_FirstFlow">
+    <bpmndi:BPMNPlane bpmnElement="FirstFlow" id="BPMNPlane_FirstFlow">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="89.99999731779104" y="162.99999307096024"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-D24668A5-668E-492A-9F0D-06F511206007" id="BPMNShape_sid-D24668A5-668E-492A-9F0D-06F511206007">
+        <omgdc:Bounds height="80.0" width="100.0" x="209.9999968707562" y="137.99999794363978"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-A8FEE132-6693-4A75-A8AA-00590BE6E5ED" id="BPMNShape_sid-A8FEE132-6693-4A75-A8AA-00590BE6E5ED">
+        <omgdc:Bounds height="80.0" width="100.0" x="344.99999485909944" y="134.99999798834327"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-2D5E9BA1-E211-41D3-A9D8-5614C4FBB89A" id="BPMNShape_sid-2D5E9BA1-E211-41D3-A9D8-5614C4FBB89A">
+        <omgdc:Bounds height="28.0" width="28.0" x="509.9999924004079" y="160.99999558925637"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-5635D058-5457-4E02-A7DF-BFDFF01275CA" id="BPMNEdge_sid-5635D058-5457-4E02-A7DF-BFDFF01275CA" flowable:sourceDockerX="15.0" flowable:sourceDockerY="15.0" flowable:targetDockerX="50.0" flowable:targetDockerY="40.0">
+        <omgdi:waypoint x="119.94999655691718" y="177.99999354093805"></omgdi:waypoint>
+        <omgdi:waypoint x="209.9999968707562" y="177.9999963718077"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-A702F143-EBDB-420F-8E5C-7BD67C7E9D27" id="BPMNEdge_sid-A702F143-EBDB-420F-8E5C-7BD67C7E9D27" flowable:sourceDockerX="50.0" flowable:sourceDockerY="40.0" flowable:targetDockerX="14.0" flowable:targetDockerY="14.0">
+        <omgdi:waypoint x="444.94999485909943" y="174.99999705846463"></omgdi:waypoint>
+        <omgdi:waypoint x="509.9999924004079" y="174.99999584869252"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-24914675-3F47-4F3E-97E1-744A48E8EF85" id="BPMNEdge_sid-24914675-3F47-4F3E-97E1-744A48E8EF85" flowable:sourceDockerX="50.0" flowable:sourceDockerY="40.0" flowable:targetDockerX="50.0" flowable:targetDockerY="40.0">
+        <omgdi:waypoint x="309.9499968707555" y="176.88888683252867"></omgdi:waypoint>
+        <omgdi:waypoint x="344.99999485909944" y="176.10999798834325"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
