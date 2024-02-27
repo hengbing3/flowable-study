@@ -3,12 +3,15 @@ package com.christer.flowablestudy;
 import org.flowable.engine.ProcessEngine;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
+import org.flowable.engine.TaskService;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.DeploymentBuilder;
+import org.flowable.task.api.Task;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @SpringBootTest
 class FlowableStudyApplicationTests {
@@ -22,6 +25,9 @@ class FlowableStudyApplicationTests {
 
     @Resource
     private RuntimeService runtimeService;
+
+    @Resource
+    private TaskService taskService;
     /**
      * 部署流程
      */
@@ -49,6 +55,21 @@ class FlowableStudyApplicationTests {
 //        runtimeService.startProcessInstanceById(processId);
         // 2.根据流程定义Key启动流程实例
         runtimeService.startProcessInstanceByKey(processKey);
+    }
+
+    /**
+     * 根据用户查询代办信息
+     */
+    @Test
+    void findFlow() {
+        // 任务实例操作我们都是通过TaskService 来实现的
+//        TaskService taskService = processEngine.getTaskService();
+        final List<Task> list = taskService.createTaskQuery()
+                .taskAssignee("zhangsan")
+                .list();
+        for (final Task task : list) {
+            System.out.println(task.getId());
+        }
     }
 
 
