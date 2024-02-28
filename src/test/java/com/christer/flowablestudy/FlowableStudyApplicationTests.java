@@ -40,8 +40,8 @@ class FlowableStudyApplicationTests {
 //        RepositoryService repositoryService = processEngine.getRepositoryService();
         DeploymentBuilder deployment = repositoryService.createDeployment();
         Deployment deploy = deployment
-                .addClasspathResource("process/Example01.bpmn20.xml")
-                .name("任务分配案例")
+                .addClasspathResource("process/Example02.bpmn20.xml")
+                .name("任务分配案例-监听器-new")
                 .deploy(); // 部署的方法
         System.out.println(deploy.getId());
     }
@@ -52,11 +52,14 @@ class FlowableStudyApplicationTests {
     @Test
     void startFlow() {
         // 在流程定义表中动态维护
-        final String processId = "Example01:1:d7b82615-d633-11ee-be10-d0abd5b04905";
+        final String processId = "Example02:2:995b38ef-d63f-11ee-9fdc-d0abd5b04905";
         // 我们创建流程图的时候自定义的，注意保证唯一
         final String processKey = "FirstFlow";
+        // 在启动流程实例的时候，我们就可以绑定对应表达式的值
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("assignee1", "zhangsan");
         // 1.根据流程定义ID启动流程实例
-        runtimeService.startProcessInstanceById(processId);
+        runtimeService.startProcessInstanceById(processId, variables);
         // 2.根据流程定义Key启动流程实例
 //        runtimeService.startProcessInstanceByKey(processKey);
     }
@@ -84,9 +87,9 @@ class FlowableStudyApplicationTests {
 //        a4a17f81-d563-11ee-a695-d0abd5b04905
         // c9500954-d566-11ee-ab39-d0abd5b04905
         Map<String, Object> variables = new HashMap<>();
-        variables.put("assign1", "lisi");
+        variables.put("assignee2", "lisi");
         // 完成任务的审批，根据任务的ID, 绑定对应的表达式的值
-        taskService.complete("600297a2-d634-11ee-8b8e-d0abd5b04905", variables);
+        taskService.complete("be981f55-d642-11ee-8fd4-d0abd5b04905");
     }
 
     /**
