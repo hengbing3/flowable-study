@@ -46,8 +46,8 @@ class FlowableStudyApplicationTests05 {
 //        RepositoryService repositoryService = processEngine.getRepositoryService();
         DeploymentBuilder deployment = repositoryService.createDeployment();
         Deployment deploy = deployment
-                .addClasspathResource("process/HolidayDemo4.bpmn20.xml")
-                .name("排他网关的案例")
+                .addClasspathResource("process/HolidayDemo5.bpmn20.xml")
+                .name("并行网关案例")
                 .deploy(); // 部署的方法
         System.out.println(deploy.getId());
     }
@@ -58,7 +58,7 @@ class FlowableStudyApplicationTests05 {
     @Test
     void startFlow() {
         // 在流程定义表中动态维护
-        final String processDefinitionId = "HolidayDemo4:1:4d0270c0-d876-11ee-a519-d0abd5b04905";
+        final String processDefinitionId = "HolidayDemo5:1:6809228b-d87b-11ee-93ca-d0abd5b04905";
         // 1.根据流程定义ID启动流程实例
         runtimeService.startProcessInstanceById(processDefinitionId);
 
@@ -108,11 +108,11 @@ class FlowableStudyApplicationTests05 {
      */
     @Test
     void completeTask() {
-        final String taskId = "35060982-d877-11ee-af9e-d0abd5b04905";
+        final String taskId = "114748e4-d87d-11ee-9dbe-d0abd5b04905";
         // 绑定请假的天数，让网关做选择
         Map<String ,Object> map = new HashMap<>();
         map.put("num", 5);
-        taskService.complete(taskId, map);
+        taskService.complete(taskId);
     }
 
 
