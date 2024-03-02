@@ -79,26 +79,65 @@ class FlowableStudyApplicationTests03 {
         // 任务实例操作我们都是通过TaskService 来实现的
 //        TaskService taskService = processEngine.getTaskService();
         final List<Task> list = taskService.createTaskQuery()
-                .taskCandidateUser("zhangsan")
+                .taskCandidateUser("christer1")
                 .list();
         for (final Task task : list) {
             // 拾取的操作 把zhangsan 由候选人变更为审批人
-            taskService.claim(task.getId(), "zhangsan");
+            taskService.claim(task.getId(), "christer1");
 //            System.out.println("task.getClaimTime() = " + task.getClaimTime());
         }
     }
+
+    /**
+     * 归还操作
+     */
+    @Test
+    void unClaimTask() {
+        final List<Task> list = taskService.createTaskQuery()
+                .taskAssignee("christer1")
+                .list();
+        for (final Task task : list) {
+            // 归还操作 ==> 审批人 --> 候选人
+            taskService.unclaim(task.getId());
+        }
+    }
+
+    /**
+     * 指派操作：指派另外一个用户来审批
+     */
+    @Test
+    void setAssignee() {
+        final List<Task> list = taskService.createTaskQuery()
+                .taskAssignee("christer1")
+                .list();
+        for (final Task task : list) {
+            System.out.println("---指派---");
+            taskService.setAssignee(task.getId(), "Christer333");
+        }
+    }
+
 
     /**
      * 任务的审批
      */
     @Test
     void completeTask() {
-//        a4a17f81-d563-11ee-a695-d0abd5b04905
-        // c9500954-d566-11ee-ab39-d0abd5b04905
+        // 通常来说，要将list 返回给前端,让登录用户去处理
+        final List<Task> list = taskService.createTaskQuery()
+                .taskAssignee("zhangsan")
+                .list();
         Map<String, Object> variables = new HashMap<>();
-        variables.put("varTask2", "varTask2");
+        variables.put("candidate4", "christer1");
+        variables.put("candidate5", "christer2");
         // 完成任务的审批，根据任务的ID, 绑定对应的表达式的值
-        taskService.complete("86298abf-d649-11ee-9f92-d0abd5b04905", variables);
+        for (final Task task : list) {
+            taskService.complete(task.getId(), variables);
+        }
+    }
+
+    @Test
+    void completeTask1() {
+        taskService.complete("eb4c6c3b-d863-11ee-be69-d0abd5b04905");
     }
 
     /**

@@ -16,6 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 流程变量
+ */
 @SpringBootTest(classes = FlowableStudyApplication.class)
 class FlowableStudyApplicationTests02 {
 
