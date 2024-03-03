@@ -15,6 +15,7 @@
     <description>flowable-study</description>
     <properties>
         <java.version>8</java.version>
+        <flowable.version>6.8.1</flowable.version>
     </properties>
     <dependencies>
         <dependency>
@@ -55,32 +56,143 @@
             <optional>true</optional>
         </dependency>
         <!--引入flowable依赖-->
-        <dependency>
+<!--        <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-engine</artifactId>
             <version>6.8.0</version>
         </dependency>
-        <!--springboot 和flowable 结合-->
+        &lt;!&ndash;springboot 和flowable 结合&ndash;&gt;
         <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-spring-boot-starter</artifactId>
             <version>6.8.0</version>
-        </dependency>
+        </dependency>-->
         <!--日志-->
-        <dependency>
+<!--        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.21</version>
-        </dependency>
+        </dependency>-->
  <!--       <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.21</version>
         </dependency>-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-common</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-admin-logic</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-admin-rest</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-admin-conf</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-admin-frontend</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-idm-logic</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-idm-rest</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-idm-conf</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-idm-frontend</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-modeler-logic</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-modeler-rest</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-modeler-conf</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-modeler-frontend</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-task-logic</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-task-rest</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-task-conf</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-task-frontend</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter-ui-admin</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter-ui-idm</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter-ui-modeler</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter-ui-task</artifactId>
+            <version>${flowable.version}</version>
         </dependency>
     </dependencies>
 
