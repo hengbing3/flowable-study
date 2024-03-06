@@ -14,7 +14,7 @@
     <name>flowable-study</name>
     <description>flowable-study</description>
     <properties>
-        <java.version>8</java.version>
+        <java.version>11</java.version>
         <flowable.version>6.8.1</flowable.version>
     </properties>
     <dependencies>
