@@ -104,11 +104,13 @@ flowable:
         first-name: Test
         last-name: Administrator
         email: test-admin@example-domain.tld
+      rest-enabled: true
+  rest-api-enabled: true
 
 logging:
   level:
     org:
-      flowable: debug
+      flowable: info
 
 management:
   endpoints:
