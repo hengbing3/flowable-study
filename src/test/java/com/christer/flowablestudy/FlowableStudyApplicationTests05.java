@@ -45,6 +45,7 @@ class FlowableStudyApplicationTests05 {
     void deployProcess() {
 //        RepositoryService repositoryService = processEngine.getRepositoryService();
         DeploymentBuilder deployment = repositoryService.createDeployment();
+
         Deployment deploy = deployment
                 .addClasspathResource("process/HolidayDemo6.bpmn20.xml")
                 .name("包容网关案例")
@@ -69,7 +70,7 @@ class FlowableStudyApplicationTests05 {
      */
     @Test
     void deleteDeployFlow() {
-        repositoryService.deleteDeployment("4c9c82fd-d876-11ee-a519-d0abd5b04905", true);
+        repositoryService.deleteDeployment("96d25fbf-e07c-11ee-9ba4-d0abd5b04902", true);
     }
 
     /**

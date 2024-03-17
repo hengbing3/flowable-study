@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.flowable.engine.IdentityService;
 import org.flowable.idm.api.Group;
 import org.flowable.idm.api.User;
+import org.flowable.spring.integration.Flowable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -35,8 +36,10 @@ public class IdmUserController {
 
     private final DecryptUtil decryptUtil;
 
+
     @PostMapping("/addUser")
     public ResponseEntity<Void> addUserInfo(@RequestBody String encrypt, HttpServletRequest request) {
+        log.info("flowable 同步更新用户数据");
         final String jsonStr = decryptUtil.generateRsaDecryptData(encrypt);
         if (!StringUtils.hasText(jsonStr)) {
             log.error("未能正确解密数据:{}", encrypt);
@@ -56,6 +59,10 @@ public class IdmUserController {
         // 新增用户
         final User user = identityService.newUser(String.valueOf(userEntity.getId()));
         user.setPassword(userEntity.getUserPassword());
+        user.setFirstName(userEntity.getUserName());
+        user.setLastName(userEntity.getUserAccount());
+        // 模拟数据
+        user.setEmail(userEntity.getUserAccount() + "@qq.com");
         user.setDisplayName(userEntity.getUserName());
         identityService.saveUser(user);
         // 普通用户，一般无工作流审核权限，所以放在普通用户组
@@ -70,7 +77,8 @@ public class IdmUserController {
      */
     @PutMapping("/changeUserPassword")
     public ResponseEntity<Void> changePassword(@RequestBody UserEntity userEntity) {
-        final User user = identityService.newUser(String.valueOf(userEntity.getId()));
+        log.info("flowable 同步修改用户密码");
+        User user = identityService.createUserQuery().userId(String.valueOf(userEntity.getId())).singleResult();
         user.setPassword(userEntity.getUserPassword());
         identityService.updateUserPassword(user);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -78,6 +86,7 @@ public class IdmUserController {
 
     @PostMapping("/userGroup")
     public ResponseEntity<Void> addUserGroup(@RequestBody DepartmentEntity departmentEntity, HttpServletRequest request) {
+        log.info("flowable 同步新增用户组");
         final String sign = request.getHeader("sign");
         final String digestSign = decryptUtil.getDigestSign(JSONUtil.toJsonStr(departmentEntity), DEPARTMENT_SALT);
         if (!CharSequenceUtil.equals(sign, digestSign)) {
@@ -93,6 +102,7 @@ public class IdmUserController {
 
     @PutMapping("/userGroup")
     public ResponseEntity<Void> updateUserGroup(@RequestBody DepartmentEntity departmentEntity, HttpServletRequest request) {
+        log.info("flowable 同步修改用户组");
         final String sign = request.getHeader("editSign");
         final String digestSign = decryptUtil.getDigestSign(JSONUtil.toJsonStr(departmentEntity), DEPARTMENT_SALT);
         if (!CharSequenceUtil.equals(sign, digestSign)) {
@@ -100,7 +110,7 @@ public class IdmUserController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         // 编辑用户组
-        final Group group = identityService.newGroup(String.valueOf(departmentEntity.getId()));
+        final Group group = identityService.createGroupQuery().groupId(String.valueOf(departmentEntity.getId())).singleResult();
         group.setName(departmentEntity.getDeptName());
         identityService.saveGroup(group);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -108,7 +118,7 @@ public class IdmUserController {
 
     @DeleteMapping("/userGroup")
     public ResponseEntity<Void> deleteUserGroup(@RequestParam("id") Long id, HttpServletRequest request) {
-
+        log.info("flowable 同步删除用户组");
         final String sign = request.getHeader("deleteSign");
         final String digestSign = decryptUtil.getDigestSign(id.toString(), DEPARTMENT_SALT_ID);
         if (!CharSequenceUtil.equals(sign, digestSign)) {

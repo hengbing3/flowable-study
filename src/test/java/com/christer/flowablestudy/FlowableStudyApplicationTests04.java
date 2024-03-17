@@ -52,9 +52,9 @@ class FlowableStudyApplicationTests04 {
      */
     @Test
     void createGroup() {
-        final Group group = identityService.newGroup("xzb");
-        group.setName("行政部");
-        group.setType("type1");
+        final Group group = identityService.newGroup("3");
+        group.setName("普通用户组");
+        group.setType("type3");
         identityService.saveGroup(group);
     }
 
