@@ -54,6 +54,19 @@ public class DecryptUtil {
     }
 
     /**
+     * 根据签名算法-生成摘要签名
+     * @param param
+     * @param salt
+     * @param algorithm
+     * @return
+     */
+    public String getDigestSignByDigestAlgorithm(String param, String salt, DigestAlgorithm algorithm) {
+        final Digester digester = DigestUtil.digester(algorithm);
+        // 添加签名到请求头，保证传参不被修改
+        return digester.digestHex(param + salt);
+    }
+
+    /**
      * 解密数据
      * @param hexStr 加密密文
      * @return 解密后的json串
