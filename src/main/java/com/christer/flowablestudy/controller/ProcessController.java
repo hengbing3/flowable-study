@@ -98,6 +98,12 @@ public class ProcessController {
         return new ResponseEntity<>(flowableInfo, HttpStatus.OK);
     }
 
+    /**
+     * 获取待办任务
+     * @param userId
+     * @param request
+     * @return
+     */
     @PostMapping("/totoTask")
     public ResponseEntity<List<String>> totoTaskList(@RequestParam String userId, HttpServletRequest request) {
         log.info("获取用户对应的代办任务:{}, ip地址:{}", userId, IPUtils.getIpAddr(request));
@@ -105,6 +111,12 @@ public class ProcessController {
         return new ResponseEntity<>(processInstanceIds, HttpStatus.OK);
     }
 
+    /**
+     * 获取已办任务
+     * @param userId
+     * @param request
+     * @return
+     */
     @PostMapping("/doneTask")
     public ResponseEntity<List<String>> doneTaskList(@RequestParam String userId, HttpServletRequest request) {
         log.info("获取用户已完成的任务:{},ip地址:{}", userId, IPUtils.getIpAddr(request));
