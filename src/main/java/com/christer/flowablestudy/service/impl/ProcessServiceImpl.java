@@ -45,7 +45,7 @@ public class ProcessServiceImpl implements ProcessService {
     @Override
     public FlowableInfo startAndCompleteTask(final FlowableStartParam param) {
         Map<String, Object> variables = new HashMap<>();
-        variables.put("assigneeUser", param.getAssigneeUser());
+        variables.put("applyUser", param.getAssigneeUser());
         // 启动流程，并选择分配人
         final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(param.getProcessInstanceKey(), variables);
         log.info("流程启动成功，流程实例ID：{}", processInstance.getId());
@@ -92,11 +92,11 @@ public class ProcessServiceImpl implements ProcessService {
         }
         // 查询已办任务，包括已完成的任务，自己所属组中已完成的任务，自己指派的任务
         final List<HistoricTaskInstance> list = historyService.createHistoricTaskInstanceQuery()
+                .or()
                 .finished()
-                .or()
                 .taskCandidateGroup(group.getId())
-                .or()
                 .taskAssignee(userId)
+                .endOr()
                 .list();
         if (CollectionUtils.isEmpty(list)) {
             return Collections.emptyList();
@@ -113,6 +113,9 @@ public class ProcessServiceImpl implements ProcessService {
             final Group group = identityService.createGroupQuery()
                     .groupMember(param.getCandidateGroupUser())
                     .singleResult();
+            if (null == group) {
+                throw new RuntimeException("未找到用户组！");
+            }
             final Task task = taskService.createTaskQuery()
                     .processInstanceId(param.getProcessInstanceId())
                     .taskCandidateGroup(group.getId())
