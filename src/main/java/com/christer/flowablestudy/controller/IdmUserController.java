@@ -65,8 +65,33 @@ public class IdmUserController {
         user.setEmail(userEntity.getUserAccount() + "@qq.com");
         user.setDisplayName(userEntity.getUserName());
         identityService.saveUser(user);
-        // 普通用户，一般无工作流审核权限，所以放在普通用户组
-        identityService.createMembership(String.valueOf(userEntity.getId()), "3");
+        // 普通用户，一般无工作流审核权限，所以放在普通用户组, 若为管理员后台新增的用户，可能为审核人员，需要绑定用户关系
+        if (userEntity.getDepartmentId() != null) {
+            identityService.createMembership(String.valueOf(userEntity.getId()), String.valueOf(userEntity.getDepartmentId()));
+        } else {
+            identityService.createMembership(String.valueOf(userEntity.getId()), "3");
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/updateUser")
+    public ResponseEntity<Void> updateUser(HttpServletRequest request) {
+        log.info("flowable 同步编辑用户数据");
+        final String sign = request.getHeader("sign");
+        final String userId = request.getHeader("userId");
+        final String departmentId = request.getHeader("departmentId");
+        final String oldDepartmentId = request.getHeader("oldDepartmentId");
+        final String digestSign = decryptUtil.getDigestSign(userId + ":" + departmentId, SALT);
+        if (!CharSequenceUtil.equals(sign, digestSign)) {
+            log.error("签名认证失败:{}", sign);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        // 删除旧关联
+        if (StringUtils.hasText(oldDepartmentId)) {
+            identityService.deleteMembership(userId, oldDepartmentId);
+        }
+        // 增加新关联
+        identityService.createMembership(userId, departmentId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
